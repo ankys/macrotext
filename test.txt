@@ -1,0 +1,233 @@
+
+===
+
+---
+
+---
+
+===parse
+
+\a
+b\
+c
+\@{\
+\@{\@}\@}\@{
+d
+e\
+\@}
+\f{
+\g{
+\@{
+---
+
+
+bc
+\\
+
+d
+e\\
+
+
+---
+
+===block
+{a}{b}
+---
+ab
+---
+
+===id
+\id{a}{b}
+---
+a
+---
+
+===ignore
+\ignore{a}{b}
+\set{c}{a}\ignore{\put{c}{c}}\c
+---
+
+c
+---
+
+===let
+\let{a}{b}{c\a}\a
+\lets{a}{b}{c\a}\a
+\letl{a}{b c}{\a{1}:\a{0}}\a
+\letd{a}{b c}{b:\a{b},c:\a{c}}\a
+\letf{a}{\2\_{0}}{b:\a{b},c:\a{c}{d}}\a
+\leth{a}{b\1{c}}{d\a{e\1}}\a
+\letr{a}{add}{\a{4}}{5}\a{c}
+\tlet{a b}{c d e}{\b\a}
+
+---
+cb
+cb
+c:b
+b:c,c:
+b:b,c:dc
+dbec
+9
+dc
+
+---
+
+===set
+\setl{a}{1 2 3}\cputd{a 1}{5 4}\a
+\setd{b}{a 1 b 2 c 3}\cput{\list{b}{\b}}{4}\b
+---
+\list{1}{\dict{5}{4}}{3}
+\dict{ a 1 b 2 c 3 }{4}{a}{1}{b}{2}{c}{3}
+---
+
+===get
+\setl{a b}{c}
+\a b
+\get{a b}
+---
+
+ b
+\list{c}
+---
+
+===if
+\set{a}{b}\if{\def{a}}{\a}{ng}
+---
+b
+---
+
+===while
+\set{a}{0}\while{1}{\put{a}{\add{\a}{1}}}{10}\a
+---
+10
+---
+
+===num
+\int{1.4}
+\add{1}{2}{5}
+\sub{1}{2}{5}
+\mul{1}{2}{5}
+\div{1}{2}{5}
+\mod{137}{5}
+\pow{3}{4} \int{\mul{\pow{2}{0.5}}{100}}
+\max{13}{3}{7}
+\min{13}{3}{7}
+---
+1
+8
+-6
+10
+0.1
+2
+81 141
+13
+3
+---
+
+===bit
+\bor{1}{2} \bit_or{5}{1}{11}
+---
+3 15
+---
+
+===compare
+\eq{1}{1} \eq{1}{1}{2}
+\ne{1}{1} \ne{1}{1}{2}
+---
+1 
+ 
+---
+
+===boolean
+\or{}{1}
+\and{}{1}
+---
+1
+
+---
+
+===string
+\split{:}{a:b}
+---
+\list{a}{b}
+---
+
+===string_list
+\join{:}{\split{,}{a,b}}
+\@setl{a}{1 2}\join{:}{\map{\add{\_}{2}}{\a}}
+---
+a:b
+3:4
+---
+
+===list
+\list{a}{b}
+\list_parse{a \\b}
+\list{a\\c\list{a}{b}}{b}
+\list_parse{a c\list{a}{b}}{b}
+---
+\list{a}{b}
+\list{a}{\\b}
+\list{a\\c\list{a}{b}}{b}
+\list{a}{c}{a}{b}{b}
+---
+
+===slice
+\range{1}{5}
+\slice{\range{1}{5}}{2}{2}{a}
+\splice{\range{1}{5}}{2}{2}{a}
+---
+\list{1}{2}{3}{4}{5}
+\list{3}{4}
+\list{1}{2}{a}{5}
+---
+
+===list_map
+\map{k\_}{\list{a}{b}}
+\map{\a\_\set{a}{c}}{\list{a}{b}}\a\_
+---
+\list{ka}{kb}
+\list{a}{b}
+---
+
+===kvlist
+\vmap{\add{\_}{3}}{a 1 b 2}
+---
+\list{a}{4}{b}{5}
+---
+
+===dict
+\dict{a}{b}{c}
+\dparse{a b c}{d e}{ f}{\list{g}{h}{i}}
+\lparse{\dict{a}{b}}
+---
+\dict{a}{b}
+\dict{a}{b}{d}{e}{g}{h}
+\list{a}{b}
+---
+
+===shift
+\@setl{a}{1 2 3}\shift{a}\a
+---
+1\list{2}{3}
+---
+
+===input
+\input{\tostr{\split{:}{a:b}}}
+---
+\list{a}{b}
+---
+
+===eval
+\eval{$_[0]+$_[1]}{1}{2}
+\eval{$_[0]->\{a\}}{\dict{a}{b}}
+---
+3
+b
+---
+
+===system
+\system{echo a}
+---
+0
+---
