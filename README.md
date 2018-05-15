@@ -9,7 +9,7 @@ $ perl MacroText.pm '\say{Hello, world!}'
 ```
 
 ```
-$ perl MacroText.pm '\@setl{a}{1 2}\join{:}{\map{\add{\_}{2}}{\a}}'
+$ perl MacroText.pm '\set_list{a}{1 2}\join{:}{\map{\add{\_}{2}}{\a}}'
 3:4
 ```
 
