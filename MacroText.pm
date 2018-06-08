@@ -1,8 +1,8 @@
 
 #
 # macro text
-# \@setl{a}{1 2}\join{:}{\map{\add{\_}{2}}{\a}}
-# -> \@setl{ a }{ 1 2 } \join{ : }{ \map{ \add{ \_ }{ 2 } }{ \a } }
+# \set_list{a}{1 2}\join{:}{\map{\add{\_}{2}}{\a}}
+# -> \set_list{ a }{ 1 2 } \join{ : }{ \map{ \add{ \_ }{ 2 } }{ \a } }
 # -> \join{ : }{ \map{ \add{ \_ }{ 2 } }{ 1 2 } }
 # -> \join{ : }{ \add{ 1 }{ 2 } \add{ 2 }{ 2 } }
 # -> \join{ : }{ 3 4 }
